@@ -1,0 +1,13 @@
+Test: test_log_in
+
+PRECONDITIONS:
+1. User with admin credentials exists and is logged out.
+
+STEPS:
+1. Navigate to login page. -> Login page is displayed.
+2. Fill the 'username' field. -> Username is entered.
+3. Fill the 'password' field. -> Password is entered.
+4. Click the 'Login' button. -> Button is clicked, dashboard page is displayed.
+
+ASSERTIONS:
+1. Check if current URL matches dashboard page URL.

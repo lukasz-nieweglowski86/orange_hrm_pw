@@ -1,0 +1,13 @@
+Test: test_search_for_employee
+
+PRECONDITIONS:
+1. User with admin credentials exists and is logged in.
+2. Known employee exists.
+3. 'PIM' page/'Employee List' subpage is displayed.
+
+STEPS:
+1. Fill the 'Employee Id' field. -> Employee Id is entered.
+2. Click the 'Search' button. -> Button is clicked, search results are displayed.
+
+ASSERTIONS:
+1. Check if 1 record has been found.

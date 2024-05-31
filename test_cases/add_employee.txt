@@ -1,0 +1,19 @@
+Test: test_adding_employee_successfully_without_login_details
+
+PRECONDITIONS:
+1. User with admin credentials exists and is logged in.
+2. 'PIM' page/'Add Employee' subpage is displayed.
+
+STEPS:
+1. Fill the 'First Name' field. -> First name is entered.
+2. Fill the 'Middle Name' field. -> Middle name is entered.
+3. Fill the 'Last Name' field. -> Last name is entered.
+4. Fill the 'Employee Id' field. -> Employee Id is entered.
+5. Click the 'Save' button. -> Button is clicked, 'Personal Details' subpage is displayed.
+
+ASSERTIONS:
+1. Check if displayed 'Employee First Name' matches data entered in Step #1.
+2. Check if displayed 'Employee Middle Name' matches data entered in Step #2.
+3. Check if displayed 'Employee Last Name' matches data entered in Step #3.
+4. Check if displayed 'Employee Id' matches data entered in Step #4.
+5. Check if avatar's header matches data entered in STEP #1 and #3.
