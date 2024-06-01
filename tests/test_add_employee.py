@@ -1,40 +1,33 @@
-import re
 from playwright.sync_api import Page, expect
+from repo.orange_hrm_pw.pages.login_page import LoginPage
+from repo.orange_hrm_pw.data.login_page import LoginPageData
+from repo.orange_hrm_pw.pages.add_employee_page import AddEmployeePage
+from repo.orange_hrm_pw.data.add_employee_page import AddEmployeePageData
+from repo.orange_hrm_pw.pages.personal_details_page import PersonalDetailsPage
 
 
-def test_example(page: Page) -> None:
-    page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    page.get_by_role('textbox', name='username').click()
-    page.get_by_role('textbox', name='username').clear()
-    page.get_by_role('textbox', name='username').fill('Admin')
-    page.get_by_role('textbox', name='password').click()
-    page.get_by_role('textbox', name='password').clear()
-    page.get_by_role('textbox', name='password').fill('admin123')
-    page.get_by_role('button', name='Login').click()
-    page.wait_for_url('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
-    # adding user
-    page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee')
-    page.wait_for_url('https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee')  # Precondition 2
-    page.get_by_placeholder('First Name').click()
-    page.get_by_placeholder('First Name').clear()
-    page.get_by_placeholder('First Name').fill('Jan')  # Step 1
-    page.get_by_placeholder('Middle Name').click()
-    page.get_by_placeholder('Middle Name').clear()
-    page.get_by_placeholder('Middle Name').fill('Piotr')  # Step 2
-    page.get_by_placeholder('Last Name').click()
-    page.get_by_placeholder('Last Name').clear()
-    page.get_by_placeholder('Last Name').fill('Nowak')  # Step 3
-    page.locator('form').get_by_role('textbox').nth(4).dblclick()
-    page.locator('form').get_by_role('textbox').nth(4).fill('861105')  # Step 4
-    page.get_by_role('button', name='Save').click()  # Step 5
-    expect(page.get_by_placeholder('First Name')).to_be_visible()
-    expect(page.get_by_placeholder('First Name')).to_have_value('Jan')  # Assertion 1
-    expect(page.get_by_placeholder('Middle Name')).to_be_visible()
-    expect(page.get_by_placeholder('Middle Name')).to_have_value('Piotr')  # Assertion 2
-    expect(page.get_by_placeholder('Last Name')).to_be_visible()
-    expect(page.get_by_placeholder('Last Name')).to_have_value('Nowak')  # Assertion 3
-    expect(page.locator('div').filter(has_text=re.compile(r'^Employee IdOther Id$')).get_by_role(
-        'textbox').first).to_be_visible()
-    expect(page.locator('div').filter(has_text=re.compile(r'^Employee IdOther Id$')).get_by_role(
-        'textbox').first).to_have_value('861105')  # Assertion 4
-    expect(page.locator('#app')).to_contain_text('Jan Nowak')  # Assertion 5
+def test_add_employee(page: Page) -> None:
+    # Preconditions
+    LoginPage(page).log_in(LoginPageData.username_value, LoginPageData.password_value)  # Precondition 1
+    AddEmployeePage(page).navigate_to_add_employee_page()  # Precondition 2
+    # Steps
+    AddEmployeePage(page).enter_firstname(AddEmployeePageData.firstname_value)  # Step 1
+    AddEmployeePage(page).enter_middlename(AddEmployeePageData.middlename_value)  # Step 2
+    AddEmployeePage(page).enter_lastname(AddEmployeePageData.lastname_value)  # Step 3
+    AddEmployeePage(page).enter_id(AddEmployeePageData.id_value)  # Step 4
+    AddEmployeePage(page).click_save_button()  # Step 5
+    # Assertions
+    expect(PersonalDetailsPage(page).firstname_value_locator).to_be_visible()
+    expect(PersonalDetailsPage(page).firstname_value_locator).to_have_value(
+        AddEmployeePageData.firstname_value)  # Assertion 1
+    expect(PersonalDetailsPage(page).middlename_value_locator).to_be_visible()
+    expect(PersonalDetailsPage(page).middlename_value_locator).to_have_value(
+        AddEmployeePageData.middlename_value)  # Assertion 2
+    expect(PersonalDetailsPage(page).lastname_value_locator).to_be_visible()
+    expect(PersonalDetailsPage(page).lastname_value_locator).to_have_value(
+        AddEmployeePageData.lastname_value)  # Assertion 3
+    expect(PersonalDetailsPage(page).id_value_locator).to_be_visible()
+    expect(PersonalDetailsPage(page).id_value_locator).to_have_value(
+        AddEmployeePageData.id_value)  # Assertion 4
+    expect(PersonalDetailsPage(page).first_and_lastname_value_locator).to_contain_text(
+        AddEmployeePageData.firstname_value + ' ' + AddEmployeePageData.lastname_value)  # Assertion 5

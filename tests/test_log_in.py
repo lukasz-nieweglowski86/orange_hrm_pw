@@ -1,14 +1,14 @@
 from playwright.sync_api import Page
+from repo.orange_hrm_pw.pages.login_page import LoginPage
+from repo.orange_hrm_pw.data.login_page import LoginPageData
 
 
 def test_log_in(page: Page) -> None:
-    page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')  # Step 1
-    page.get_by_role('textbox', name='username').click()
-    page.get_by_role('textbox', name='username').clear()
-    page.get_by_role('textbox', name='username').fill('Admin')  # Step 2
-    page.get_by_role('textbox', name='password').click()
-    page.get_by_role('textbox', name='password').clear()
-    page.get_by_role('textbox', name='password').fill('admin123')  # Step 3
-    page.get_by_role('button', name='Login').click()  # Step 4
-    page.wait_for_url('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
-    assert page.url == 'https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index'  # Assertion 1
+    # Steps
+    LoginPage(page).navigate_to_login_page()  # Step 1
+    LoginPage(page).enter_username(LoginPageData.username_value)  # Step 2
+    LoginPage(page).enter_password(LoginPageData.password_value)  # Step 3
+    LoginPage(page).click_login_button()  # Step 4
+    # Assertions
+    LoginPage(page).wait_for_index_page_to_load()
+    assert page.url == LoginPage.index_page_url  # Assertion 1

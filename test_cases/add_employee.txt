@@ -1,4 +1,4 @@
-Test: test_adding_employee_successfully_without_login_details
+Test: test_add_employee
 
 PRECONDITIONS:
 1. User with admin credentials exists and is logged in.
