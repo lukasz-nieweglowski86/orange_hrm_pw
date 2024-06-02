@@ -17,5 +17,5 @@
 # Running the tests:
 # - in IDE terminal run command 'pytest <directory containing tests>', for example: C:\Users\Username\Desktop\projects> pytest repo\orange_hrm_pw\
 # - in IDE terminal navigate to directory containing tests and run command 'pytest', for example: C:\Users\Username\Desktop\projects\repo\orange_hrm_pw> pytest
-# - in IDE files structure view right-click folder containing tests and click the 'Run pytest in <folder name>'
-# - in IDE files structure view right-click file containing test/tests and click the 'Run pytest in <file name>'
+# - in IDE files structure view right-click folder containing tests and click the 'Run pytest in (folder name)'
+# - in IDE files structure view right-click file containing test/tests and click the 'Run pytest in (file name)'
